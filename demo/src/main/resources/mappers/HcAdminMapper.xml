@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.HcAdminMapper">
+	<select id="selectVaildUser" parameterType="com.example.demo.dto.HcStaffM" resultType="com.example.demo.dto.HcStaffM">
+	    	<![CDATA[
+	    	SELECT user_id AS userId
+	        	 , password AS password
+	        FROM hc_staff_m
+	        WHERE 1=1]]>
+	        <![CDATA[
+			  and user_id = #{userId, jdbcType=VARCHAR}
+	          and password = #{password, jdbcType=VARCHAR} ]]>
+	</select>
+	<insert id="insertNewFaq" parameterType ="HcNotice" useGeneratedKeys="true" keyProperty="seq_no">
+		<![CDATA[ insert into HC_FAQ_M (title_nm, cntnt)
+			values(#{title_nm, jdbcType=VARCHAR}, #{cntnt, jdbcType=VARCHAR})
+		]]>
+	</insert>
+	<update id ="updateFaqBySeqNo" parameterType ="HcFaqDto">
+		<![CDATA[
+		 	update HC_FAQ_M set title_nm = #{titleNm, jdbcType=VARCHAR}
+		 	, cntnt = #{cntnt, jdbcType=VARCHAR}
+		 	where seq_no = #{seqNo, jdbcType=VARCHAR}
+		 ]]>
+	</update>
+	<update id ="deleteFaqBySeqNo" parameterType ="Integer">
+		<![CDATA[
+			update HC_FAQ_M set del_yn = 'Y'
+			where seq_no = #{seqNo, jdbcType=VARCHAR}
+		]]>
+	</update>
+	
+	<select id = "selectLastestPopupContent" parameterType ="com.example.demo.dto.HcPopupMsg" resultType="com.example.demo.dto.HcPopupMsg">
+		select seq_no as seqNo
+		    , title_nm as titleNm
+		    , cntnt as cntnt
+		    , rgst_dt as rgstDt
+		    , popup_yn as popupYn
+		    
+		    from hc_popup_msg
+		
+		where 1 = 1
+		
+		<if test="seqNo != null and seqNo gt 0" >
+			and seq_no = #{seq_no, jdbcType=VARCHAR}
+		</if>
+
+		<if test="popupYn != null and popupYn !=''" >
+        <![CDATA[
+        	and popup_yn = #{popupYn,  jdbcType=VARCHAR}
+        ]]>
+        </if>
+		order by seq_no desc
+		limit 1
+	</select>
+	
+	<update id = "updatePopupContent" parameterType ="com.example.demo.dto.HcPopupMsg" >
+		update hc_popup_msg 
+			set title_nm = #{titleNm,  jdbcType=VARCHAR}
+			, cntnt =  #{cntnt,  jdbcType=VARCHAR}
+			, popup_yn =  #{popupYn,  jdbcType=VARCHAR}
+			, last_chng_tmpstmp = now()
+		where seq_no = #{seq_no, jdbcType = NUMERIC }
+		
+	</update>
+	
+	<insert id ="insertPopupContent" parameterType ="com.example.demo.dto.HcPopupMsg" >
+		insert into hc_popup_msg ( title_nm, cntnt, popupYn)
+		values (  #{titleNm,  jdbcType=VARCHAR},  #{cntnt,  jdbcType=VARCHAR}, #{popupYn,  jdbcType=VARCHAR})	
+	</insert>
+</mapper>

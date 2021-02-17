@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.HcGosiMapper">
+    <select id="selectAllList"  resultType="com.example.demo.dto.HcFaqDto">
+    <![CDATA[
+        SELECT seq_no AS seqNo
+        	 , title_nm AS titleNm
+        	 , file_nm AS cntnt
+        	 , rgst_dt as rgstDt
+        FROM HC_GOSI_INFO_M
+      ]]>
+    </select>
+    <select id="getAllCount" resultType="Integer">
+    <![CDATA[
+    	select CEIL(count(seq_no)/10) AS cnt
+    	from HC_GOSI_INFO_M
+    	where 1=1
+     ]]>
+    </select>
+    
+    <select id="selectGosiListPage" parameterType="Integer" resultType="com.example.demo.dto.HcFaqDto">
+    	<![CDATA[
+    	SELECT seq_no AS seqNo
+        	 , title_nm AS titleNm
+        	 , file_nm AS cntnt
+        	 , rgst_dt as rgstDt
+        FROM HC_GOSI_INFO_M
+        WHERE 1=1]]>
+        <![CDATA[
+		  ORDER BY 1 desc
+          LIMIT #{seq_no, jdbcType=INTEGER} , 10 ]]>
+    </select>
+    
+    <delete id="deleteGosiInfo" parameterType="int" >
+    	delete from HC_GOSI_INFO_M
+    	WHERE <![CDATA[ seq_no = #{seqNo}
+    	]]>
+    </delete>
+    
+    <update id="updateeGosiInfo" parameterType="com.example.demo.dto.HcFaqDto" >
+    	update HC_GOSI_INFO_M 
+    		set title_nm = #{titleNm, jdbcType=VARCHAR}
+    		<if test="cntnt != null and cntnt !=''" >
+    		  , file_nm = #{cntnt, jdbcType=VARCHAR}
+    		</if>
+    	where seq_no = #{seqNo}
+    </update>
+    
+    <insert id="insertGosiinfo" parameterType="com.example.demo.dto.HcFaqDto">
+    	insert into HC_GOSI_INFO_M (title_nm, file_nm) 
+    	 values (#{titleNm, jdbcType=INTEGER}, #{cntnt, jdbcType=INTEGER})
+    </insert>
+  
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.example.demo.dto.HcNotie" alias="HcNotice"/>
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="/mappers/HcNoticeMapper.xml"/>
+		<mapper resource="/mappers/HcCompanyInfoMapper.xml"/>
+		<mapper resource="/mappers/HcAdminMapper.xml"/>
+	</mappers>
+</configuration>
