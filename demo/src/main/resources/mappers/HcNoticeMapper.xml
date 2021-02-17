@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.HcNoticeMapper">
+    <select id="selectAllList"  resultType="com.example.demo.dto.HcNotice">
+    <![CDATA[
+        SELECT seq_no AS seq_no
+        	 , title_nm AS title_nm
+        	 , cntnt AS cntnt
+        	 , del_yn AS del_yn
+        	 , rgst_dt as rgst_dt
+        FROM HC_NOTICE_M
+      ]]>
+    </select>
+    <select id="getAllCount" parameterType="String" resultType="Integer">
+    <![CDATA[
+    	select CEIL(COUNT(seq_no) / 10) AS cnt
+    	from HC_NOTICE_M
+    	where del_yn = 'N'
+     ]]>
+    	<if test="rgstDt != null and rgstDt != ''">
+    	<![CDATA[
+    		and rgst_dt >= #{rgstDt}
+    	 ]]>
+    	</if>
+    </select>
+    <select id="selectNoticeListPage" parameterType="Integer" resultType="com.example.demo.dto.HcNotice">
+    	<![CDATA[
+    	SELECT seq_no AS seq_no
+        	 , title_nm AS title_nm
+        	 , cntnt AS cntnt
+        	 , del_yn AS del_yn
+        	 , rgst_dt as rgst_dt
+        FROM HC_NOTICE_M
+        WHERE del_yn = 'N']]>
+
+        <![CDATA[
+		  ORDER BY seq_no desc
+          LIMIT #{seq_no, jdbcType=INTEGER}, 10	]]>
+    </select>
+    
+    <insert id="insertNoticeData" parameterType="com.example.demo.dto.HcNotice">
+    	insert into HC_NOTICE_M (title_nm, cntnt, del_yn)
+    	values (#{title_nm, jdbcType=VARCHAR}, #{cntnt, jdbcType=VARCHAR}, 'N')
+    </insert>
+    
+    <update id="updateNoticeData" parameterType="com.example.demo.dto.HcNotice">
+    	update HC_NOTICE_M set
+    		seq_no = #{seq_no, jdbcType=VARCHAR}
+    		<if test="title_nm != null and title_nm !=''" >
+	    		, title_nm = #{title_nm, jdbcType=VARCHAR}
+	    	</if>
+	    	<if test="cntnt != null and cntnt !=''" >
+	    		, cntnt = #{cntnt, jdbcType=VARCHAR}
+	    	</if>
+    		<if test="del_yn != null and del_yn !=''" >
+    			, del_yn =  #{del_yn, jdbcType=VARCHAR}
+    		</if>
+    		where seq_no = #{seq_no, jdbcType=VARCHAR}
+    </update>
+    
+    <select id="selectFaqCount" resultType="Integer">
+    	<![CDATA[
+    	SELECT CEIL(COUNT(seq_no) / 10) cnt
+        FROM HC_FAQ_M
+        WHERE del_yn = 'N'
+        ]]>
+    </select>
+    
+    <select id="selectFaqListPage" parameterType="Integer" resultType="com.example.demo.dto.HcFaqDto">
+    	<![CDATA[
+    	SELECT seq_no AS seqNo
+        	 , title_nm AS titleNm
+        	 , cntnt AS cntnt
+        	 , del_yn AS delYn
+        	 , rgst_dt as rgstDt
+        FROM HC_FAQ_M
+        WHERE del_yn = 'N']]>
+        <![CDATA[
+		  ORDER BY seqNo desc
+          LIMIT #{seq_no, jdbcType=INTEGER} , 10 ]]>
+    </select>
+</mapper>

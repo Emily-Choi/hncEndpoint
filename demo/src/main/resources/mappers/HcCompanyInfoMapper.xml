@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.HcCompanyInfoMapper">
+    <select id="selectCorpInfo"  resultType="com.example.demo.dto.HcCorpInfoDto">
+	    <![CDATA[
+	       SELECT corp_nm AS corpNm
+		  		 , corp_addr AS corpAddr
+		  		 , corp_rgst_no AS corpRgstNo
+		  		 , prsn_info_mngr AS prsnInfoMngr
+		  		 , zip_no AS zipNo
+		  		 , tel_no AS telNo
+		  		 , fax_no AS faxNo
+		  		 , prsdt_nm AS prsdtNm
+	     FROM HC_corp_INFO
+		  ORDER BY SEQ_NO DESC
+	     limit 1
+	      ]]>
+    </select>
+    <select id = "selectCoprHisInfo" resultType="com.example.demo.dto.HcCorpHIsInfo">
+    	SELECT seq_no AS seqNo
+			, base_ym AS baseYm
+			, cntnt AS cntnt
+			, cntnt_dtl AS cntntDtl
+			, del_yn AS delYn
+		FROM hc_corp_his
+		WHERE del_yn = 'N'
+    	order by seq_no
+    </select>
+    
+    <select id = "selectCoprBizInfo" resultType="com.example.demo.dto.HcCorpBizInfoDto">
+    	SELECT seq_no AS seqNo
+			, main_biz AS mainBiz
+			, estb_fnd AS estbFnd
+			, capital AS capital
+			, stck_holder AS stckHlder
+		FROM hc_corp_biz_info
+
+    	order by seq_no desc
+    	limit 1
+    </select>
+    
+</mapper>
