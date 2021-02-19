@@ -68,4 +68,13 @@
 		insert into hc_popup_msg ( title_nm, cntnt, popupYn)
 		values (  #{titleNm,  jdbcType=VARCHAR},  #{cntnt,  jdbcType=VARCHAR}, #{popupYn,  jdbcType=VARCHAR})	
 	</insert>
+	
+	<select id = "selectImgPopupYn" parameterType ="com.example.demo.dto.HcPopupMsg" resultType="com.example.demo.dto.HcPopupMsg">
+		select seq_no as seqNo
+		    , img_src as titleNm
+		    , cntnt as cntnt
+		    , popup_yn as popupYn
+		    from hc_popup_img
+			order by seq_no
+	</select>
 </mapper>
