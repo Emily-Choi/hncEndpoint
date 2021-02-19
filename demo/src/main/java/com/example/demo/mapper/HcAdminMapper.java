@@ -1,4 +1,6 @@
 package com.example.demo.mapper;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +19,5 @@ public interface HcAdminMapper {
 	HcPopupMsg selectLastestPopupContent(HcPopupMsg in);
 	int updatePopupContent(HcPopupMsg in);
 	int insertPopupContent(HcPopupMsg in);
+	List<HcPopupMsg> selectImgPopupYn();
 }

@@ -1,5 +1,8 @@
 package com.example.demo.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -112,6 +115,14 @@ public class HcAdminController {
 		return out;
 	}
 	
+	@RequestMapping("/getImgPopupYn")
+	public List<HcPopupMsg> getImgPopupYn() {		
+		List<HcPopupMsg> out = new ArrayList<HcPopupMsg>();
+		
+		out = mapper.selectImgPopupYn();
+		
+		return out;
+	}
 //	@RequestMapping("/getLatestPopup")
 //	public HcPopupMsg getLatestPopupContent() {
 //		HcPopupMsg out = new HcPopupMsg();
