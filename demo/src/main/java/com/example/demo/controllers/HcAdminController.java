@@ -176,8 +176,8 @@ public class HcAdminController {
 	         //DB저장
 	         in.setSeqNo(seqNo);
 	         in.setPopupYn(popupYn);
-	         in.setTitleNm(dir+file.getOriginalFilename());
-	         
+	         in.setTitleNm("/assets/images/popup/"+file.getOriginalFilename());
+	         logger.info("mapper.changeImgPopupImg in: seq: " + in.getSeqNo() + " popupYn: " + in.getPopupYn() + " in.getFilePath: " + in.getTitleNm());
 	         out = mapper.updateImgPopup(in);
 	         
 	         logger.info("mapper.insertGosiinfo: " + out);
@@ -185,6 +185,7 @@ public class HcAdminController {
 	         return  ResponseEntity.status(HttpStatus.OK).body(message);
 	      } catch (Exception e) {
 	         message = e.getMessage().toString();
+	         logger.info("Message: " + ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message));
 	         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
 	      }
 	}
