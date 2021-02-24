@@ -60,12 +60,12 @@
 			, cntnt =  #{cntnt,  jdbcType=VARCHAR}
 			, popup_yn =  #{popupYn,  jdbcType=VARCHAR}
 			, last_chng_tmpstmp = now()
-		where seq_no = #{seq_no, jdbcType = NUMERIC }
+		where seq_no = #{seqNo, jdbcType = NUMERIC }
 		
 	</update>
 	
 	<insert id ="insertPopupContent" parameterType ="com.example.demo.dto.HcPopupMsg" >
-		insert into hc_popup_msg ( title_nm, cntnt, popupYn)
+		insert into hc_popup_msg ( title_nm, cntnt, popup_yn)
 		values (  #{titleNm,  jdbcType=VARCHAR},  #{cntnt,  jdbcType=VARCHAR}, #{popupYn,  jdbcType=VARCHAR})	
 	</insert>
 	
