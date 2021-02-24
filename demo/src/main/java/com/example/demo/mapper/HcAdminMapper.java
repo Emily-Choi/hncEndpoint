@@ -20,4 +20,5 @@ public interface HcAdminMapper {
 	int updatePopupContent(HcPopupMsg in);
 	int insertPopupContent(HcPopupMsg in);
 	List<HcPopupMsg> selectImgPopupYn();
+	int updateImgPopup(HcPopupMsg in);
 }

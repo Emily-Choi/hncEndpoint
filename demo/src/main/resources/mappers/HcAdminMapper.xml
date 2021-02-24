@@ -77,4 +77,16 @@
 		    from hc_popup_img
 			order by seq_no
 	</select>
+	
+	<update id = "updateImgPopup" parameterType ="com.example.demo.dto.HcPopupMsg">
+		update hc_popup_img set 
+		pupyp_yn = #{popupYn,  jdbcType=VARCHAR})
+		<if test="titleNm != null and titleNm != ''" >
+			, img_src = #{titleNm, jdbcType=VARCHAR}
+		</if>
+		
+		where seq_no =  #{seqNo, jdbcType = NUMERIC }
+
+	</update>
+	
 </mapper>
